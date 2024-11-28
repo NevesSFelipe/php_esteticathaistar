@@ -1,0 +1,8 @@
+{
+    "name": "fsn/esteticathaistar",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
