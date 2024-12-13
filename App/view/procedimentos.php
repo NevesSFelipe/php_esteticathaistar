@@ -6,6 +6,7 @@
         <title>Thais Alves | @esteticathaistar</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="<?= URL_BASE ?>/../../assets/css/style.css?v=<?= time(); ?>">
+        <link rel="stylesheet" href="<?= URL_BASE ?>/../../assets/css/modal.css?v=<?= time(); ?>">
     </head>
 
     <body>
@@ -49,32 +50,7 @@
                     </tr>
                 </thead>
                 
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Design de Sobrancelha</td>
-                        <td>R$ <span>25.00</span></td>
-                        <td>
-
-                            <span class="text-primary botao_acao_tabela" data-bs-toggle="modal" data-bs-target="#exampleModal" data-botao_modal data-acao="Visualizar">
-                                <i class="fa-solid fa-eye"></i>
-                            </span>
-
-                            &nbsp;
-
-                            <span class="text-warning botao_acao_tabela" data-bs-toggle="modal" data-bs-target="#exampleModal" data-botao_modal data-acao="Editar">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </span>
-
-                            &nbsp;
-
-                            <span onclick="excluirItem(1)" class="text-danger botao_acao_tabela">
-                                <i class="fa-solid fa-trash"></i>
-                            </span>
-
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="corpoTabela"></tbody>
             </table>
         </div>
 
@@ -85,6 +61,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="<?= URL_BASE ?>/../../assets/js/main.js?v=<?= time(); ?>"></script>
+        <script src="<?= URL_BASE ?>/../../assets/js/procedimentos.js?v=<?= time(); ?>"></script>
         <script src="<?= URL_BASE ?>/../../assets/js/modais.js?v=<?= time(); ?>"></script>
 
     </body>

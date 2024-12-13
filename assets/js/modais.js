@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function init() {
-    montarModal();
+    montarModal();    
 }
 
 function montarModal() {
-
+    
     const objBotoesModal = document.querySelectorAll('[data-botao_modal]');
 
     objBotoesModal.forEach(botao => {
@@ -58,11 +58,16 @@ function formatarBotaoModal(acao_modal) {
 
     const btnAcaoModal = document.getElementById("btnAcaoModal");
 
-    btnAcaoModal.textContent = acao_modal;
+    const novoBotao = btnAcaoModal.cloneNode(true);
+    btnAcaoModal.replaceWith(novoBotao);
 
-    btnAcaoModal.className = "btn";
-    btnAcaoModal.classList.add(corBotao);
-    btnAcaoModal.classList.add(visibilidadeBotao);
+    novoBotao.textContent = acao_modal;
+
+    novoBotao.className = "btn";
+    novoBotao.classList.add(corBotao);
+    novoBotao.classList.add(visibilidadeBotao);
+
+    novoBotao.addEventListener("click", () => processarAcaoModal(acao_modal));
 
 }
 
@@ -72,12 +77,76 @@ function formatarCamposModal(acao_modal) {
 
 function formataInput(acao_modal) {
 
+    const statusDisabled = (acao_modal == "Visualizar");
+    
     const input = document.querySelectorAll("input");
 
-    const statusDisabled = (acao_modal == "Visualizar");
-
     input.forEach((elemento) => {
+        
         elemento.disabled = statusDisabled;
-    })
+        
+    });
+
+}
+    
+function carregarDadosModal(linha) {
+    
+    limparCamposModalESC();
+
+    const objTDs = linha.querySelectorAll('td');
+    let objParametrosInputs = {};
+
+    objTDs.forEach((td) => {
+        
+        let idElemento = td.id;
+        let conteudoElemento = td.textContent;
+
+        if(idElemento != "") {
+
+            if( idElemento.indexOf("input_")  > -1) {
+                objParametrosInputs[td.id] = conteudoElemento;
+            }
+        
+        }
+        
+    });
+
+    carregarDadosInputs(objParametrosInputs);
+
+
+}
+
+function carregarDadosInputs(objParametrosInputs) {
+
+    Object.entries(objParametrosInputs).forEach(([chave, valor]) => {
+
+        let idInput = chave.replace("input_td_", "");
+        document.getElementById(idInput).value = valor;
+
+    });
+
+}
+
+function limparCamposModal() {
+    limparDadosInputs();
+}
+
+function limparDadosInputs() {
+ 
+    const input = document.querySelectorAll("input");
+
+    input.forEach((elemento) => { elemento.value = ""; });
+
+}
+
+function limparCamposModalESC() {
+     
+    document.addEventListener("keydown", (event) => {
+    
+        if (event.key === "Escape") {            
+            limparDadosInputs();
+        }
+
+    });
 
 }
