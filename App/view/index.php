@@ -20,8 +20,18 @@
                         <div class="card bg-warning">
                             <div class="card-body">
                                 <h5 class="card-title">PROCEDIMENTOS</h5>
-                                <p class="card-text">Cadastre os procedimentos oferecidos com os seus respectivos valores.</p>
+                                <p class="card-text">Cadastre os procedimentos.</p>
                                 <a href="<?= URL_BASE ?>/../procedimentos" class="btn btn-outline-dark">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <div class="card bg-success">
+                            <div class="card-body">
+                                <h5 class="card-title">CLIENTES</h5>
+                                <p class="card-text">Cadastre os dados dos clientes.</p>
+                                <a href="<?= URL_BASE ?>/../clientes" class="btn btn-outline-dark">Acessar</a>
                             </div>
                         </div>
                     </div>

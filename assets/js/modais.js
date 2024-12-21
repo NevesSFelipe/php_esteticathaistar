@@ -73,6 +73,7 @@ function formatarBotaoModal(acao_modal) {
 
 function formatarCamposModal(acao_modal) {
     formataInput(acao_modal);
+    formatarSelect(acao_modal);
 }
 
 function formataInput(acao_modal) {
@@ -88,6 +89,20 @@ function formataInput(acao_modal) {
     });
 
 }
+
+function formatarSelect(acao_modal) {
+
+    const statusDisabled = (acao_modal == "Visualizar");
+    
+    const select = document.querySelectorAll("select");
+
+    select.forEach((elemento) => {
+        
+        elemento.disabled = statusDisabled;
+        
+    });
+
+}
     
 function carregarDadosModal(linha) {
     
@@ -95,6 +110,7 @@ function carregarDadosModal(linha) {
 
     const objTDs = linha.querySelectorAll('td');
     let objParametrosInputs = {};
+    let objParametrosSelect = {};
 
     objTDs.forEach((td) => {
         
@@ -106,12 +122,17 @@ function carregarDadosModal(linha) {
             if( idElemento.indexOf("input_")  > -1) {
                 objParametrosInputs[td.id] = conteudoElemento;
             }
+
+            if( idElemento.indexOf("select_")  > -1) {
+                objParametrosSelect[td.id] = conteudoElemento;
+            }
         
         }
         
     });
 
     carregarDadosInputs(objParametrosInputs);
+    carregarDadosSelect(objParametrosSelect);
 
 
 }
@@ -121,7 +142,28 @@ function carregarDadosInputs(objParametrosInputs) {
     Object.entries(objParametrosInputs).forEach(([chave, valor]) => {
 
         let idInput = chave.replace("input_td_", "");
-        document.getElementById(idInput).value = valor;
+        
+        const valorInput = (document.getElementById(idInput).type == "date") ? converter_data_br_to_us(valor) : valor;
+
+        document.getElementById(idInput).value = valorInput;
+
+    });
+
+}
+
+function carregarDadosSelect(objParametrosSelect) {
+
+    Object.entries(objParametrosSelect).forEach(([chave, valor]) => {
+
+        let idSelect = chave.replace("select_td_", "");
+
+        let elementoSelect = document.getElementById(idSelect);
+
+        Array.from(elementoSelect.options).forEach((option) => {
+            if (option.value === valor) {
+                option.selected = true;
+            }
+        });
 
     });
 
@@ -129,6 +171,7 @@ function carregarDadosInputs(objParametrosInputs) {
 
 function limparCamposModal() {
     limparDadosInputs();
+    limparDadosSelect();
 }
 
 function limparDadosInputs() {
@@ -139,12 +182,21 @@ function limparDadosInputs() {
 
 }
 
+function limparDadosSelect() {
+ 
+    const select = document.querySelectorAll("select");
+
+    select.forEach((elemento) => { elemento.value = ""; });
+
+}
+
 function limparCamposModalESC() {
      
     document.addEventListener("keydown", (event) => {
     
         if (event.key === "Escape") {            
             limparDadosInputs();
+            limparDadosSelect();
         }
 
     });
